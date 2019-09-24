@@ -42,7 +42,7 @@
         name: copr:copr.fedorainfracloud.org:mrmeee:ansible-awx
         description: Copr repo for ansible-awx owned by mrmeee
         baseurl: https://copr-be.cloud.fedoraproject.org/results/mrmeee/ansible-awx/epel-7-$basearch/
-        type: rpm-md
+        setype: rpm-md
         skip_if_unavailable: yes
         gpgcheck: yes
         gpgkey: https://copr-be.cloud.fedoraproject.org/results/mrmeee/ansible-awx/pubkey.gpg
