@@ -1,6 +1,6 @@
 ---
 - name: Configure a AWX Server 7.0.0
-  hosts: awx_server
+  hosts: awxserver
   become: True
   vars:
 
@@ -18,11 +18,11 @@
         setype: http_port_t
         state: present
 
-     - name: Set httpd_can_network_connect flag on and keep it persistent across reboots
-       seboolean:
-         name: httpd_can_network_connect
-         state: yes
-         persistent: yes
+    - name: Set httpd_can_network_connect flag on and keep it persistent across reboots
+      seboolean:
+        name: httpd_can_network_connect
+        state: yes
+        persistent: yes
          
     - name: Install epel-release package
       yum: name=epel-release
