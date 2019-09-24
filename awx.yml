@@ -5,8 +5,9 @@
   vars:
 
   tasks:
-    - name: upgrade all packages
-      yum: name=* state=latest
+    
+#    - name: upgrade all packages
+#      yum: name=* state=latest
         
     - name: install python tools
       yum: name=policycoreutils-python update_cache=yes
