@@ -40,6 +40,7 @@
     - name: Add AWX repository
       yum_repository:
         name: copr:copr.fedorainfracloud.org:mrmeee:ansible-awx
+        file: ansible-awx
         description: Copr repo for ansible-awx owned by mrmeee
         baseurl: https://copr-be.cloud.fedoraproject.org/results/mrmeee/ansible-awx/epel-7-$basearch/
 #        type: rpm-md
@@ -56,6 +57,7 @@
         baseurl: https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/v3.7.x/el/7/
         gpgcheck: no
         repo_gpgcheck: no
+        enabled: yes
 
     - name: Add RABBITMQ ERLANG repository
       yum_repository:
@@ -65,6 +67,7 @@
         baseurl: https://dl.bintray.com/rabbitmq-erlang/rpm/erlang/21/el/7/
         gpgcheck: no
         repo_gpgcheck: no
+        enabled: yes
  
     - name: Install RabbitMQ
       yum: name=rabbitmq-server
