@@ -45,7 +45,7 @@
         type: rpm-md
         skip_if_unavailable: yes
         gpgcheck: yes
-        gpgkey:https://copr-be.cloud.fedoraproject.org/results/mrmeee/ansible-awx/pubkey.gpg
+        gpgkey: https://copr-be.cloud.fedoraproject.org/results/mrmeee/ansible-awx/pubkey.gpg
         repo_gpgcheck: no
         
     - name: Add RABBITMQ repository
