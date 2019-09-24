@@ -90,10 +90,10 @@
 
     - name: Install PYTHON36-SPECIAL
       yum:
-        name: rh-python36*
-        disablerepo: *
+        name: 'rh-python36*'
+        disablerepo: '*'
         enablerepo: copr:copr.fedorainfracloud.org:mrmeee:ansible-awx, base
-        exclude: *-debuginfo
+        exclude: '*-debuginfo'
         
     - name: Install AWX
       yum: name=ansible-awx
