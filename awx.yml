@@ -1,0 +1,76 @@
+---
+- name: Configure a AWX Server 7.0.0
+  hosts: awx_server
+  become: True
+  vars:
+
+  tasks:
+    - name: upgrade all packages
+      yum: name=* state=latest
+        
+    - name: install python tools
+      yum: name=policycoreutils-python update_cache=yes
+    
+    - name: Open ports 8050-8052 to allow a webserver to listen
+      seport:
+        ports: 8050-8052
+        proto: tcp
+        setype: http_port_t
+        state: present
+
+     - name: Set httpd_can_network_connect flag on and keep it persistent across reboots
+       seboolean:
+         name: httpd_can_network_connect
+         state: yes
+         persistent: yes
+         
+    - name: Install epel-release package
+      yum: name=epel-release
+      
+    - name: Install centos utilities & wget
+      yum:
+        name: "{{ packages }}"
+      vars:
+        packages:
+        - centos-release-scl
+        - centos-release-scl-rh
+        - wget
+
+    - name: Add AWX repository
+      yum_repository:
+        name: ansible-awx
+        description: ansible-awx repo
+        baseurl: https://copr.fedorainfracloud.org/coprs/mrmeee/ansible-awx/repo/epel-7/mrmeee-ansible-awx-epel-7.repo
+        gpgcheck: no
+        repo_gpgcheck: no
+        
+    - name: Add RABBITMQ repository
+      yum_repository:
+        name: bintray-rabbitmq-rpm
+        description: bintray-rabbitmq-rpm
+        baseurl: https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/v3.7.x/el/7/
+        gpgcheck: no
+        repo_gpgcheck: no
+
+    - name: Add RABBITMQ ERLANG repository
+      yum_repository:
+        name: bintray-rabbitmq-erlang-rpm
+        description: bintray-rabbitmq-rpm
+        baseurl: https://dl.bintray.com/rabbitmq-erlang/rpm/erlang/21/el/7/
+        gpgcheck: no
+        repo_gpgcheck: no
+ 
+    - name: Install RabbitMQ
+      yum: name=rabbitmq-server
+
+    - name: Install GIT
+      yum: name=rh-git29
+
+    - name: Install PostgreSQL
+      yum: name=rh-postgresql10
+      
+    - name: Install RabbitMQ
+      yum: name=memcached
+      
+
+
