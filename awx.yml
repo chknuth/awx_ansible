@@ -43,9 +43,9 @@
         description: Copr repo for ansible-awx owned by mrmeee
         baseurl: https://copr-be.cloud.fedoraproject.org/results/mrmeee/ansible-awx/epel-7-$basearch/
         type: rpm-md
-        skip.if_unavailable: yes
+        skip_if_unavailable: yes
         gpgcheck: yes
-        gpgkey=https://copr-be.cloud.fedoraproject.org/results/mrmeee/ansible-awx/pubkey.gpg
+        gpgkey:https://copr-be.cloud.fedoraproject.org/results/mrmeee/ansible-awx/pubkey.gpg
         repo_gpgcheck: no
         
     - name: Add RABBITMQ repository
