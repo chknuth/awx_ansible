@@ -78,8 +78,22 @@
     - name: Install PostgreSQL
       yum: name=rh-postgresql10
       
-    - name: Install RabbitMQ
+    - name: Install Memcached
       yum: name=memcached
       
+    - name: Install NGINX
+      yum: name=nginx
+      
+    - name: Install PYTHON36
+      yum: name=rh-python36
+      
 
-
+    - name: Install PYTHON36-SPECIAL
+      yum:
+        name: rh-python36*
+        disablerepo: *
+        enablerepo: copr:copr.fedorainfracloud.org:mrmeee:ansible-awx, base
+        exclude: *-debuginfo
+        
+    - name: Install AWX
+      yum: name=ansible-awx
