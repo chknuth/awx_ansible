@@ -44,7 +44,7 @@
           - python-psycopg2
 
     - name: Initialise PostgreSQL Database
-      become_user: postgres
+#      become_user: postgres
       postgresql_db:
         name: awx
         login_host: localhost
