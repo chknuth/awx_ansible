@@ -93,6 +93,9 @@
     - name: Install PYTHON36
       yum: name=rh-python36
 
+    - name: Install PYTHON36-psycopg2
+      yum: name=python36-psycopg2
+      
     - name: Install PYTHON36-SPECIAL
       yum:
         name: 'rh-python36*'
@@ -111,6 +114,7 @@
       systemd:
         state: started
         name: rh-postgresql10-postgresql.service
+        enabled: yes
       
     - name: Start RabbitMQ Service
       systemd:
