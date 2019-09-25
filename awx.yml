@@ -48,7 +48,7 @@
 #        /usr/pgsql-10/bin/postgresql-10-setup initdb
 #      become_user: root
 
-- name: Initialise PostgreSQL Database
+    - name: Initialise PostgreSQL Database
       become_user: root
       postgresql_db:
         name: awx
