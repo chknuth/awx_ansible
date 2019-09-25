@@ -109,6 +109,12 @@
         
     - name: Install AWX
       yum: name=ansible-awx
+      
+    - name: Start PostgreSQL Database
+      systemd:
+        state: started
+        name: postgresql.service
+        enabled: yes
         
     - name: Initialise PostgreSQL Database
       postgresql_db:
@@ -116,12 +122,6 @@
         login_host: localhost
         port: 5432
         state: present
-      
-    - name: Start PostgreSQL Database
-      systemd:
-        state: started
-        name: postgresql.service
-        enabled: yes
       
     - name: Start RabbitMQ Service
       systemd:
