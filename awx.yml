@@ -102,10 +102,12 @@
         path: /var/opt/rh/rh-postgresql10/lib/pgsql/data/*
         state: absent
 
-    - name: Remove old data files
+    - name: Remove old tempdir
       file:
         path: /var/lib/awx/.ansible/tmp
-        state: absent
+        owner: awx
+        mode: 0700
+        state: present
       
     - name: Initialise PostgreSQL Database
       shell: |
