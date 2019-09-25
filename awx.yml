@@ -83,12 +83,13 @@
       yum: 
         name: "{{ packages }}"
         state: present
+        
       vars:
         packages:
-          - postgresql10
-          - postgresql10-server
-          - postgresql10-contrib
-          - postgresql10-libs
+          - postgresql
+          - postgresql-server
+          - postgresql-contrib
+          - postgresql-libs
       
     - name: Install Memcached
       yum: name=memcached
@@ -116,7 +117,7 @@
     - name: Start PostgreSQL Database
       systemd:
         state: started
-        name: postgresql-10.service
+        name: postgresql.service
         enabled: yes
       
     - name: Start RabbitMQ Service
