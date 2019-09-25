@@ -43,7 +43,6 @@
         file: ansible-awx
         description: Copr repo for ansible-awx owned by mrmeee
         baseurl: https://copr-be.cloud.fedoraproject.org/results/mrmeee/ansible-awx/epel-7-$basearch/
-#        type: rpm-md
         skip_if_unavailable: yes
         gpgcheck: yes
         gpgkey: https://copr-be.cloud.fedoraproject.org/results/mrmeee/ansible-awx/pubkey.gpg
@@ -75,8 +74,15 @@
     - name: Install GIT
       yum: name=rh-git29
 
+    - name: Deinstall PostgreSQL
+      yum: 
+        name: rh-postgresql10
+        state: absent
+        
     - name: Install PostgreSQL
-      yum: name=rh-postgresql10
+      yum: 
+        name: rh-postgresql10
+        state: present    
       
     - name: Install Memcached
       yum: name=memcached
@@ -96,31 +102,7 @@
         
     - name: Install AWX
       yum: name=ansible-awx
-      
-    - name: Remove old data files
-      file:
-        path: /var/opt/rh/rh-postgresql10/lib/pgsql/data
-        state: absent
         
-    - name: Remove old data files
-      file:
-        path: /var/lib/pgsql
-        state: absent
-        
-#    - name: Remove old files
-#      file:
-#        path: /var/lib/pgsql
-#        owner: awx
-#        mode: 0700
-#       state: directory
-       
-#    - name: create tempdir
-#      file:
-#        path: /var/lib/awx/.ansible/tmp
-#        owner: awx
-#        mode: 0700
-#        state: directory
-      
     - name: Initialise PostgreSQL Database
       shell: |
         cd /tmp
