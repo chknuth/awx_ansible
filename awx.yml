@@ -14,7 +14,7 @@
     
     - name: Open ports 8050-8052 to allow a webserver to listen
       seport:
-        ports: 8050-8052,5432
+        ports: 8050-8052
         proto: tcp
         setype: http_port_t
         state: present
@@ -113,6 +113,8 @@
     - name: Initialise PostgreSQL Database
       postgresql_db:
         name: awx
+        login_host: localhost
+        port: 5432
         state: present
       
     - name: Start PostgreSQL Database
