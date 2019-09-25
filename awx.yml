@@ -46,7 +46,7 @@
     - name: Start PostgreSQL Database service
       service:
         state: started
-        name: postgresql10
+        name: postgresql-10
         enabled: yes
         
     - name: Initialise PostgreSQL Database
