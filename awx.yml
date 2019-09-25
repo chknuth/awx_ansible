@@ -98,7 +98,7 @@
     - name: Install AWX
       yum: name=ansible-awx
       
-    - name: Enable and Initialise PostgreSQL Database
+    - name: Initialise PostgreSQL Database
       shell: |
         scl enable rh-postgresql10 "postgresql-setup initdb"
       become_user: root
@@ -113,13 +113,42 @@
         state: started
         name: rabbitmq-server
       
-    - name: Enable and Initialise PostgreSQL User
+    - name: Initialise PostgreSQL User
       shell: |
         scl enable rh-postgresql10 "su postgres -c \"createuser -S awx\""
       become_user: root
       
-    - name: Enable and Initialise PostgreSQL Database Schema
+    - name: Initialise PostgreSQL Database Schema
       shell: |
         scl enable rh-postgresql10 "su postgres -c \"createdb -O awx awx\""
       become_user: root
       
+    - name: Initialise AWX Data Schema
+      shell: |
+        scl enable rh-python36 rh-postgresql10 rh-git29 "GIT_PYTHON_REFRESH=quiet awx-manage migrate"
+      become_user: awx
+      
+    - name: Fill AWX Database with Initial Data - Part I/II
+      shell: |
+        echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'root@localhost', 'password')" | sudo -u awx scl enable rh-python36 rh-postgresql10 "GIT_PYTHON_REFRESH=quiet awx-manage shell"
+      become_user: root
+      
+    - name: Fill AWX Database with Initial Data - Part II/II
+      shell: |
+        scl enable rh-python36 rh-postgresql10 rh-git29 "GIT_PYTHON_REFRESH=quiet awx-manage create_preload_data" # Optional Sample Configuration
+        scl enable rh-python36 rh-postgresql10 rh-git29 "GIT_PYTHON_REFRESH=quiet awx-manage provision_instance --hostname=$(hostname)"
+        scl enable rh-python36 rh-postgresql10 rh-git29 "GIT_PYTHON_REFRESH=quiet awx-manage register_queue --queuename=tower --hostnames=$(hostname)"
+      become_user: awx
+
+    - name: Configure NGINX as proxy
+      shell: |
+        sudo wget -O /etc/nginx/nginx.conf https://raw.githubusercontent.com/MrMEEE/awx-build/master/nginx.conf
+      become_user: root
+     
+    - name: Start & Enable AWX Service
+      systemd:
+        state: started
+        enabled: yes
+        name: awx
+     
+            
