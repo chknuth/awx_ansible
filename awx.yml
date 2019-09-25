@@ -14,7 +14,7 @@
     
     - name: Open ports 8050-8052 to allow a webserver to listen
       seport:
-        ports: 8050-8052
+        ports: 8050-8052,5432
         proto: tcp
         setype: http_port_t
         state: present
