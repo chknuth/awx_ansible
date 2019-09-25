@@ -123,8 +123,9 @@
       
     - name: Initialise PostgreSQL Database
       shell: |
+        cd /tmp
         scl enable rh-postgresql10 "postgresql-setup --initdb --unit rh-postgresql10-postgresql"
-      become_user: awx
+      become_user: root
       
     - name: Start PostgreSQL Database
       systemd:
