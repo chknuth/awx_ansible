@@ -113,7 +113,7 @@
     - name: Start PostgreSQL Database
       systemd:
         state: started
-        name: postgresql.service
+        name: postgresql
         enabled: yes
         
     - name: Initialise PostgreSQL Database
