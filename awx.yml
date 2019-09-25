@@ -44,12 +44,17 @@
           - python-psycopg2
 
     - name: Initialise PostgreSQL Database
+      shell: |
+        /usr/pgsql-10/bin/postgresql-10-setup initdb
+      become_user: root
+
+#- name: Initialise PostgreSQL Database
 #      become_user: postgres
-      postgresql_db:
-        name: awx
-        login_host: localhost
-        port: 5432
-        state: present
+#      postgresql_db:
+#        name: awx
+#        login_host: localhost
+#        port: 5432
+#        state: present
         
     - name: Start PostgreSQL Database service
       service:
