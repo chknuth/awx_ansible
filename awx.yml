@@ -107,7 +107,7 @@
         path: /var/lib/awx/.ansible/tmp
         owner: awx
         mode: 0700
-        state: present
+        state: directory
       
     - name: Initialise PostgreSQL Database
       shell: |
