@@ -49,7 +49,7 @@
 #      become_user: root
 
     - name: Initialise PostgreSQL Database
-      become_user: root
+      become_user: postgres
       postgresql_db:
         name: awx
 #        login_host: localhost
