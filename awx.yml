@@ -28,6 +28,31 @@
     - name: Install epel-release package
       yum: name=epel-release
       
+    - name: Install PostgreSQL
+      yum: 
+        name: "{{ packages }}"
+        state: present
+      vars:
+        packages:
+          - postgresql
+          - postgresql-contrib
+          - python-psycopg2
+
+    - name: Start PostgreSQL Database service
+      service:
+        state: started
+        name: postgresql
+        enabled: yes
+        
+    - name: Initialise PostgreSQL Database
+      sudo_user: postgres
+      postgresql_db:
+        name: awx
+        login_host: localhost
+        port: 5432
+        state: present
+          
+      
     - name: Install centos utilities & wget
       yum:
         name: "{{ packages }}"
@@ -74,16 +99,6 @@
     - name: Install GIT
       yum: name=rh-git29
 
-    - name: Install PostgreSQL
-      yum: 
-        name: "{{ packages }}"
-        state: present
-      vars:
-        packages:
-          - postgresql
-          - postgresql-contrib
-          - python-psycopg2
-      
     - name: Install Memcached
       yum: name=memcached
       
@@ -102,21 +117,7 @@
         
     - name: Install AWX
       yum: name=ansible-awx
-      
-    - name: Start PostgreSQL Database
-      service:
-        state: started
-        name: postgresql
-        enabled: yes
-        
-    - name: Initialise PostgreSQL Database
-      sudo_user: postgres
-      postgresql_db:
-        name: awx
-        login_host: localhost
-        port: 5432
-        state: present
-      
+            
     - name: Start RabbitMQ Service
       systemd:
         state: started
