@@ -86,7 +86,6 @@
       
     - name: Install PYTHON36
       yum: name=rh-python36
-      
 
     - name: Install PYTHON36-SPECIAL
       yum:
@@ -100,8 +99,13 @@
       
     - name: Initialise PostgreSQL Database
       shell: |
-        scl enable rh-postgresql10 "postgresql-setup --initdb --unit rh-postgresql10-postgresql"
+        rm -rf /var/opt/rh/rh-postgresql10/lib/pgsql/data/*
       become_user: root
+      
+      - name: Initialise PostgreSQL Database
+      shell: |
+        scl enable rh-postgresql10 "postgresql-setup --initdb --unit rh-postgresql10-postgresql"
+      become_user: awx
       
     - name: Start PostgreSQL Database
       systemd:
