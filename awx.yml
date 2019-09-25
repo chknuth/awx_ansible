@@ -97,9 +97,9 @@
     - name: Install AWX
       yum: name=ansible-awx
       
-    - name: Initialise PostgreSQL Database
+    - name: Remove old data files
       shell: |
-        rm -rf /var/opt/rh/rh-postgresql10/lib/pgsql/data/*
+        rm -rf /var/opt/rh/rh-postgresql10/lib/pgsql/data
       become_user: root
       
       - name: Initialise PostgreSQL Database
