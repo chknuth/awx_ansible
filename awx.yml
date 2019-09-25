@@ -43,12 +43,6 @@
           - postgresql10-server
 #          - python-psycopg2
 
-    - name: Start PostgreSQL Database service
-      service:
-        state: started
-        name: postgresql-10
-        enabled: yes
-        
     - name: Initialise PostgreSQL Database
       become_user: postgres
       postgresql_db:
@@ -56,8 +50,13 @@
         login_host: localhost
         port: 5432
         state: present
-          
-      
+        
+    - name: Start PostgreSQL Database service
+      service:
+        state: started
+        name: postgresql-10
+        enabled: yes
+              
     - name: Install centos utilities & wget
       yum:
         name: "{{ packages }}"
