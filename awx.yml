@@ -92,9 +92,35 @@
       yum:
         name: 'rh-python36*'
         disablerepo: '*'
-#        enablerepo: copr:copr.fedorainfracloud.org:mrmeee:ansible-awx,base
         enablerepo: "copr:copr.fedorainfracloud.org:mrmeee:ansible-awx,base"
         exclude: '*-debuginfo'
         
     - name: Install AWX
       yum: name=ansible-awx
+      
+    - name: Enable and Initialise PostgreSQL Database
+      shell: |
+        scl enable rh-postgresql10 "postgresql-setup initdb"
+      become_user: root
+      with_items: "{{ vars_list }}"
+      
+    - name: Start PostgreSQL Database
+      systemd:
+        state: started
+        name: rh-postgresql10-postgresql.service
+      
+    - name: Start RabbitMQ Service
+      systemd:
+        state: started
+        name: rabbitmq-server
+      
+    - name: Enable and Initialise PostgreSQL User
+      shell: |
+        scl enable rh-postgresql10 "su postgres -c \"createuser -S awx\""
+      become_user: root
+      
+    - name: Enable and Initialise PostgreSQL Database Schema
+      shell: |
+        scl enable rh-postgresql10 "su postgres -c \"createdb -O awx awx\""
+      become_user: root
+      
