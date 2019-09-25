@@ -105,7 +105,9 @@
     - name: Remove old files
       file:
         path: /var/lib/pgsql
-        state: absent        
+        owner: awx
+        mode: 0700
+        state: directory
        
     - name: create tempdir
       file:
