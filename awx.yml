@@ -89,7 +89,8 @@
           - postgresql
           - postgresql-server
           - postgresql-contrib
-          - postgresql-libs
+          - libpq-dev
+          - python-psycopg2
       
     - name: Install Memcached
       yum: name=memcached
@@ -113,6 +114,7 @@
     - name: Initialise PostgreSQL Database
       postgresql_db:
         name: awx
+        state: present
       
     - name: Start PostgreSQL Database
       systemd:
