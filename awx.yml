@@ -74,20 +74,13 @@
     - name: Install GIT
       yum: name=rh-git29
 
-    - name: Deinstall PostgreSQL
-      yum: 
-        name: rh-postgresql10
-        state: absent
-        
     - name: Install PostgreSQL
       yum: 
         name: "{{ packages }}"
         state: present
-        
       vars:
         packages:
           - postgresql
-          - postgresql-server
           - postgresql-contrib
           - python-psycopg2
       
@@ -111,12 +104,13 @@
       yum: name=ansible-awx
       
     - name: Start PostgreSQL Database
-      systemd:
+      service:
         state: started
         name: postgresql
         enabled: yes
         
     - name: Initialise PostgreSQL Database
+      sudo_user: postgres
       postgresql_db:
         name: awx
         login_host: localhost
