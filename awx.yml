@@ -101,8 +101,13 @@
       file:
         path: /var/opt/rh/rh-postgresql10/lib/pgsql/data/*
         state: absent
-
-    - name: Remove old tempdir
+        
+    - name: Remove old files
+      file:
+        path: /var/lib/pgsql
+        state: absent        
+       
+    - name: create tempdir
       file:
         path: /var/lib/awx/.ansible/tmp
         owner: awx
