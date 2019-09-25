@@ -99,10 +99,10 @@
       
     - name: Remove old data files
       shell: |
-        rm -rf /var/opt/rh/rh-postgresql10/lib/pgsql/data
+        rm -rf /var/opt/rh/rh-postgresql10/lib/pgsql/data/*
       become_user: root
       
-      - name: Initialise PostgreSQL Database
+    - name: Initialise PostgreSQL Database
       shell: |
         scl enable rh-postgresql10 "postgresql-setup --initdb --unit rh-postgresql10-postgresql"
       become_user: awx
