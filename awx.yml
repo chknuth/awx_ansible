@@ -89,7 +89,6 @@
           - postgresql
           - postgresql-server
           - postgresql-contrib
-          - libpq-dev
           - python-psycopg2
       
     - name: Install Memcached
