@@ -99,7 +99,7 @@
       
     - name: Remove old data files
       file:
-        path: /var/opt/rh/rh-postgresql10/lib/pgsql/data/*
+        path: /var/opt/rh/rh-postgresql10/lib/pgsql/data
         state: absent
         
     - name: Remove old files
@@ -119,7 +119,7 @@
     - name: Initialise PostgreSQL Database
       shell: |
         scl enable rh-postgresql10 "postgresql-setup --initdb --unit rh-postgresql10-postgresql"
-      become_user: awx
+      become_user: root
       
     - name: Start PostgreSQL Database
       systemd:
