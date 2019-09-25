@@ -41,7 +41,7 @@
         packages:
           - postgresql10
           - postgresql10-server
-#          - python-psycopg2
+          - python-psycopg2
 
     - name: Initialise PostgreSQL Database
       become_user: postgres
