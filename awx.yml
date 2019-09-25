@@ -92,7 +92,8 @@
       yum:
         name: 'rh-python36*'
         disablerepo: '*'
-        enablerepo: copr:copr.fedorainfracloud.org:mrmeee:ansible-awx, base
+#        enablerepo: copr:copr.fedorainfracloud.org:mrmeee:ansible-awx,base
+        enablerepo: "copr:copr.fedorainfracloud.org:mrmeee:ansible-awx,base"
         exclude: '*-debuginfo'
         
     - name: Install AWX
