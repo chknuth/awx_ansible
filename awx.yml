@@ -52,6 +52,7 @@
       become_user: postgres
       postgresql_db:
         name: awx
+        login_unix_socket: /tmp
 #        login_host: localhost
 #        port: 5432
         state: present
